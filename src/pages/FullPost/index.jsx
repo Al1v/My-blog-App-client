@@ -58,6 +58,7 @@ export const FullPost = () => {
         isLoading={commentsIsLoading}
         items={comments.items}
         lockEdit={false}
+        isFullPost = {true}
       >
         {isAuth && <NewComment user={user} />}
       </CommentsBlock>

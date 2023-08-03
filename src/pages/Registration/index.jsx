@@ -4,22 +4,45 @@ import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
-import {
-  Form,
-  useActionData,
-  useNavigation,
-} from "react-router-dom";
+import { Form, useActionData, useNavigation } from "react-router-dom";
 import axios from "../../axios";
 
 import styles from "./Login.module.scss";
 
 export const Registration = () => {
   const [avatarUrl, setAvatarUrl] = React.useState();
+  const [nameError, setnameError] = React.useState();
+  const [emailError, setEmailError] = React.useState();
+  const [passwordError, SetPasswordError] = React.useState();
+  const [error, setError] = React.useState();
   const fileRef = React.useRef();
   const data = useActionData();
   const errMsg = data && data.message ? data.message : null;
-  const emailErr = errMsg ? errMsg.includes("email") : null;
-  const passwordErr = errMsg ? errMsg.includes("password") : null;
+
+
+  React.useEffect(() => {
+    setEmailError();
+    SetPasswordError();
+    setnameError();
+
+    if (errMsg) {
+      for (let err of errMsg) {
+        if (err.includes("email")) {
+          setEmailError(err);
+        } else if (err.includes("password")) {
+          SetPasswordError(err);
+        }else if(err.includes("fullName")) {
+          setnameError(err)
+        } else {
+          setError(err);
+        }
+      }
+    }
+
+    console.log({emailError});
+    console.log({passwordError})
+  }, [errMsg]);
+
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
@@ -90,13 +113,15 @@ export const Registration = () => {
         </div>
         <br />
 
-        <input id='avatarUrl' name='avatarUrl' value={avatarUrl} hidden/>
+        <input id="avatarUrl" name="avatarUrl" value={avatarUrl} hidden />
         <br />
         <TextField
           className={styles.field}
           label="Full name"
           id="name"
           name="name"
+          error={nameError}
+          helperText={nameError}
           fullWidth
         />
         <TextField
@@ -104,8 +129,8 @@ export const Registration = () => {
           id="email"
           name="email"
           label="E-Mail"
-          error={emailErr}
-          helperText={emailErr && errMsg}
+          error={emailError}
+          helperText={emailError}
           fullWidth
         />
         <TextField
@@ -114,8 +139,8 @@ export const Registration = () => {
           fullWidth
           id="password"
           name="password"
-          error={passwordErr}
-          helperText={passwordErr && errMsg}
+          error={passwordError}
+          helperText={passwordError}
         />
         <Button
           disabled={isSubmitting}

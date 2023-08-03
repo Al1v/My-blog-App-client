@@ -3,14 +3,21 @@ import React from "react";
 import axios from "../../axios";
 import "easymde/dist/easymde.min.css";
 
-import { redirect, useLoaderData, defer, Await, useActionData } from "react-router-dom";
+import {
+  redirect,
+  useLoaderData,
+  defer,
+  Await,
+  useActionData,
+} from "react-router-dom";
 import { getAuthToken } from "../../helpers/jwt";
 import CreatePostForm from "../../components/CreatePostForm";
 
 export const EditPost = () => {
   const { postData } = useLoaderData();
-
+  const actionData = useActionData();
   const initialState = {
+    errors: null,
     id: null,
     isLoading: true,
     title: null,
@@ -19,6 +26,13 @@ export const EditPost = () => {
     imageUrl: null,
   };
   const [state, setState] = React.useState(initialState);
+  const [errors, setErrors] = React.useState();
+
+  React.useEffect(() => {
+    if (actionData) {
+      setErrors(actionData.message);
+    }
+  }, [actionData]);
 
   function applyInitialValues(loadedPost) {
     if (state.isLoading) {
@@ -29,6 +43,7 @@ export const EditPost = () => {
         tags: loadedPost.data.tags,
         text: loadedPost.data.text,
         imageUrl: loadedPost.data.imageUrl,
+        errors: null,
       });
     }
   }
@@ -44,6 +59,7 @@ export const EditPost = () => {
       )}
 
       <CreatePostForm
+        errors={errors}
         id={state.id}
         isLoading={state.isLoading}
         title={state.title}
@@ -67,7 +83,7 @@ export async function editPostAction({ request }) {
     });
     return redirect(`/posts/${id}`);
   } catch (e) {
-    throw new Error(e);
+    return e.response.data;
   }
 }
 

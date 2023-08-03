@@ -3,15 +3,23 @@ import React from "react";
 import axios from "../../axios";
 import "easymde/dist/easymde.min.css";
 
-import { redirect } from "react-router-dom";
+import { redirect, useActionData } from "react-router-dom";
 
 import CreatePostForm from "../../components/CreatePostForm";
 
 export const AddPost = () => {
+  const actionData = useActionData();
+  const [errors, setErrors] = React.useState();
+
+  React.useEffect(() => {
+    if (actionData) {
+      setErrors(actionData.message);
+    }
+  }, [actionData]);
 
   return (
     <>
-      <CreatePostForm isLoading={false} />
+      <CreatePostForm isLoading={false} errors={errors}/>
     </>
   );
 };
@@ -28,7 +36,7 @@ export async function addPostAction({ request }) {
     const id = response.data.id;
     return redirect(`/posts/${id}`);
   } catch (e) {
-    throw new Error(e);
+    return e.response.data;
   }
 }
 

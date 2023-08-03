@@ -24,6 +24,8 @@ export const CommentsBlock = ({
   children,
   isLoading = true,
   lockEdit = true,
+  isFullPost
+
 }) => {
   const dispatch = useDispatch();
   const user = getAuthToken();
@@ -55,8 +57,9 @@ export const CommentsBlock = ({
               : null;
             return (
               <Link
+                
                 key={obj?.id}
-                to={`posts/${obj?.postId}`}
+                to={ isFullPost ? '' : `posts/${obj?.postId}`}
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <React.Fragment key={obj?.id || index}>

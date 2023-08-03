@@ -10,6 +10,7 @@ import { Form, useActionData } from "react-router-dom";
 
 export default function CreatePostForm(props) {
   const {
+    errors: propsErrors,
     id: propsId,
     isLoading: propsIsLoading,
     title: propsTitle,
@@ -21,12 +22,13 @@ export default function CreatePostForm(props) {
   const [text, setText] = React.useState();
   const [title, setTitle] = React.useState();
   const [tags, setTags] = React.useState();
-  const fileRef = React.useRef();
-  const token = localStorage.getItem("token");
+  const [titleError, setTitleError] = React.useState();
+  const [textError, setTextError] = React.useState();
+  const [error, setError] = React.useState();
   const [id, setId] = React.useState(propsId);
   const [isLoading, setIsLoading] = React.useState();
-
-
+  const fileRef = React.useRef();
+  const token = localStorage.getItem("token");
 
   React.useEffect(() => {
     setTitle(propsTitle);
@@ -35,6 +37,21 @@ export default function CreatePostForm(props) {
     setId(propsId);
     setImageUrl(propsImageUrl);
     setIsLoading(propsIsLoading);
+    setTitleError();
+    setTextError();
+    setError()
+
+    if (propsErrors) {
+      for (let err of propsErrors) {
+        if (err.includes("title")) {
+          setTitleError(err);
+        } else if (err.includes("text")) {
+          setTextError(err);
+        } else {
+          setError(err);
+        }
+      }
+    }
   }, [props]);
 
   async function handleInputFile(event) {
@@ -82,88 +99,92 @@ export default function CreatePostForm(props) {
     []
   );
   return (
-    <Paper style={{ padding: 30 }}>
-      <Form method="PATCH">
-        <Button
-          onClick={() => fileRef.current.click()}
-          variant="outlined"
-          size="large"
-          disabled={isLoading}
-        >
-          Load preview
-        </Button>
-        <input ref={fileRef} type="file" onChange={handleInputFile} hidden />
-        {imageUrl && (
+    <>
+      {error && <p className={styles.error}>{error}</p>}
+      <Paper style={{ padding: 30 }}>
+        <Form method="PATCH">
           <Button
-            variant="contained"
-            color="error"
-            onClick={onClickRemoveImage}
-          >
-            Delete
-          </Button>
-        )}
-        {imageUrl && (
-          <img
-            className={styles.image}
-            src={`http://localhost:5000/${imageUrl}`}
-            alt="Uploaded"
-          />
-        )}
-        <br />
-        <br />
-        <TextField
-          id="title"
-          name="title"
-          classes={{ root: styles.title }}
-          variant="standard"
-          placeholder="Post title..."
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-          fullWidth
-          disabled={isLoading}
-        />
-        <TextField
-          id="tags"
-          name="tags"
-          classes={{ root: styles.tags }}
-          variant="standard"
-          placeholder="Tags"
-          value={tags}
-          onChange={(event) => setTags(event.target.value)}
-          fullWidth
-          disabled={isLoading}
-        />
-        <input id="text" name="text" value={text} readOnly hidden />
-
-        <input id="token " name="token" value={token} readOnly hidden />
-
-        <input id="image" name="image" value={imageUrl} readOnly hidden />
-
-        <input id="id" name="id" value={id} readOnly hidden />
-
-        <SimpleMDE
-          className={styles.editor}
-          value={text}
-          onChange={onChange}
-          options={options}
-         
-        />
-        <div className={styles.buttons}>
-          <Button
-            disabled={isLoading}
-            type="submit"
+            onClick={() => fileRef.current.click()}
+            variant="outlined"
             size="large"
-            variant="contained"
+            disabled={isLoading}
           >
-            Publish
+            Load preview
           </Button>
-          <a href="/">
-            <Button disabled={isLoading} size="large">
-              Cancel
+          <input ref={fileRef} type="file" onChange={handleInputFile} hidden />
+          {imageUrl && (
+            <Button
+              variant="contained"
+              color="error"
+              onClick={onClickRemoveImage}
+            >
+              Delete
             </Button>
-          </a>
-        </div>
-      </Form>
-    </Paper>
+          )}
+          {imageUrl && (
+            <img
+              className={styles.image}
+              src={`http://localhost:5000/${imageUrl}`}
+              alt="Uploaded"
+            />
+          )}
+          <br />
+          <br />
+          <TextField
+            id="title"
+            name="title"
+            classes={{ root: styles.title }}
+            variant="standard"
+            placeholder="Post title..."
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            fullWidth
+            disabled={isLoading}
+          />
+          {titleError && <p className={styles.error}>{titleError}</p>}
+          <TextField
+            id="tags"
+            name="tags"
+            classes={{ root: styles.tags }}
+            variant="standard"
+            placeholder="Tags"
+            value={tags}
+            onChange={(event) => setTags(event.target.value)}
+            fullWidth
+            disabled={isLoading}
+          />
+          <input id="text" name="text" value={text} readOnly hidden />
+
+          <input id="token " name="token" value={token} readOnly hidden />
+
+          <input id="image" name="image" value={imageUrl} readOnly hidden />
+
+          <input id="id" name="id" value={id} readOnly hidden />
+
+          <SimpleMDE
+            className={styles.editor}
+            value={text}
+            onChange={onChange}
+            options={options}
+          />
+          {textError && <p className={styles.error}>{textError}</p>}
+          <div className={styles.buttons}>
+            <Button
+              disabled={isLoading}
+              type="submit"
+              size="large"
+              variant="contained"
+            >
+              Publish
+            </Button>
+            <a href="/">
+              <Button disabled={isLoading} size="large">
+                Cancel
+              </Button>
+            </a>
+          </div>
+        </Form>
+      </Paper>
+    </>
   );
 }

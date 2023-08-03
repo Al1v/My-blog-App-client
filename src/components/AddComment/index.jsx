@@ -21,7 +21,6 @@ export const NewComment = ({ user }) => {
     e.preventDefault();
     const reqData = {
       text: commentTextRef.current.value,
-      userId: user.id,
       postId: id,
     };
 
