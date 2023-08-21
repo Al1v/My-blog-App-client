@@ -1,7 +1,7 @@
 import React from "react";
 import { getAuthToken, getTokenDuration, logout } from "../helpers/jwt";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleIsAuth, getState } from "../store/authSlice";
+import { toggleIsAuth } from "../store/authSlice";
 import { store } from "../store/store";
 
 export default function UseAuthControl() {

@@ -1,8 +1,6 @@
 import React from "react";
-
 import axios from "../../axios";
 import "easymde/dist/easymde.min.css";
-
 import {
   redirect,
   useLoaderData,

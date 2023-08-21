@@ -6,11 +6,9 @@ import Grid from "@mui/material/Grid";
 import { Post } from "../components/Post";
 import { TagsBlock } from "../components/TagsBlock";
 import { CommentsBlock } from "../components/CommentsBlock";
-import axios from "../axios";
 import { useDispatch, useSelector } from "react-redux";
-import { afterPostDelete, deletePost, getPosts, getTags } from "../store/postsSlice";
+import {  getPosts, getTags } from "../store/postsSlice";
 import { getAuthToken } from "../helpers/jwt";
-import UseAuthControl from "../hooks/authHook";
 import { getLastComments } from "../store/commentsSlice";
 
 const tabs = ["new", "popular"];

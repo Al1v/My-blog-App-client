@@ -6,7 +6,7 @@ import SimpleMDE from "react-simplemde-editor";
 import axios from "../../axios";
 import "easymde/dist/easymde.min.css";
 import styles from "./CreatePostForm.module.scss";
-import { Form, useActionData } from "react-router-dom";
+import { Form } from "react-router-dom";
 
 export default function CreatePostForm(props) {
   const {

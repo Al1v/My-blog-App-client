@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import { Form, useActionData, useNavigation } from "react-router-dom";
 import axios from "../../axios";
-
 import styles from "./Login.module.scss";
 
 export const Registration = () => {
@@ -19,7 +18,6 @@ export const Registration = () => {
   const data = useActionData();
   const errMsg = data && data.message ? data.message : null;
 
-
   React.useEffect(() => {
     setEmailError();
     SetPasswordError();
@@ -31,18 +29,14 @@ export const Registration = () => {
           setEmailError(err);
         } else if (err.includes("password")) {
           SetPasswordError(err);
-        }else if(err.includes("fullName")) {
-          setnameError(err)
+        } else if (err.includes("fullName")) {
+          setnameError(err);
         } else {
           setError(err);
         }
       }
     }
-
-    console.log({emailError});
-    console.log({passwordError})
   }, [errMsg]);
-
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";

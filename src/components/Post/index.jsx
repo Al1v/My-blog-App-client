@@ -10,7 +10,7 @@ import styles from "./Post.module.scss";
 import { UserInfo } from "../UserInfo";
 import { PostSkeleton } from "./Skeleton";
 import { Link } from "react-router-dom";
-import { deletePost, getTags, setLike } from "../../store/postsSlice";
+import { deletePost, setLike } from "../../store/postsSlice";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 

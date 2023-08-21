@@ -10,7 +10,6 @@ import {
   json,
   redirect,
 } from "react-router-dom";
-
 import styles from "./Login.module.scss";
 import { toggleIsAuth } from "../../store/authSlice";
 import { store } from "../../store/store";

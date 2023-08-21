@@ -1,10 +1,7 @@
 import React from "react";
-
 import axios from "../../axios";
 import "easymde/dist/easymde.min.css";
-
 import { redirect, useActionData } from "react-router-dom";
-
 import CreatePostForm from "../../components/CreatePostForm";
 
 export const AddPost = () => {
@@ -19,7 +16,7 @@ export const AddPost = () => {
 
   return (
     <>
-      <CreatePostForm isLoading={false} errors={errors}/>
+      <CreatePostForm isLoading={false} errors={errors} />
     </>
   );
 };

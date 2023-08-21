@@ -15,7 +15,6 @@ import { Link } from "react-router-dom";
 import styles from "./Post/Post.module.scss";
 import clsx from "clsx";
 import { useDispatch } from "react-redux";
-import { deletePost } from "../store/postsSlice";
 import { deleteComment } from "../store/commentsSlice";
 import { getAuthToken } from "../helpers/jwt";
 

@@ -1,10 +1,8 @@
 import React from "react";
-
 import { useLoaderData, Await } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "../../axios";
 import ReactMarkdown from "react-markdown";
-
 import { CommentsBlock, NewComment, Post } from "../../components";
 import { store } from "../../store/store";
 import { setComments } from "../../store/commentsSlice";

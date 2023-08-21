@@ -1,7 +1,5 @@
 import React from "react";
-
 import styles from "./AddComment.module.scss";
-
 import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -48,7 +46,11 @@ export const NewComment = ({ user }) => {
             inputRef={commentTextRef}
             value={value}
           />
-          <Button onClick={postComment} variant="contained" disabled={commentsIsLoading}>
+          <Button
+            onClick={postComment}
+            variant="contained"
+            disabled={commentsIsLoading}
+          >
             Send
           </Button>
         </div>

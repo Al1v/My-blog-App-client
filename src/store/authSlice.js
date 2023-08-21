@@ -1,16 +1,10 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../axios";
+import { createSlice } from "@reduxjs/toolkit";
 import { getAuthToken } from "../helpers/jwt";
 
 const initialState = {
   isAuth: false,
   user: {}
 };
-
-// export const getUserData = createAsyncThunk("auth/getUserData", async (params) => {
-//   const { data } = await axios.post("/auth/login", params);
-//   return data;
-// });
 
 const authSlice = createSlice({
   name: "auth",
@@ -27,20 +21,6 @@ const authSlice = createSlice({
       return state;
     },
   },
-  // extraReducers: {
-  //   [getUserData.pending]: (state, action) => {
-  //     state.data = null
-  //     state.status = "loading";
-  //   },
-  //   [getUserData.fulfilled]: (state, action) => {
-  //     state.data = action.payload;
-  //     state.status = "loaded";
-  //   },
-  //   [getUserData.rejected]: (state, action) => {
-  //     state.data = null
-  //     state.status = "error";
-  //   }
-  // },
 });
 
 export const { toggleIsAuth, getState } = authSlice.actions;

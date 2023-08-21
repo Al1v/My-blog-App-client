@@ -1,4 +1,4 @@
-import { Avatar, ListItemAvatar, Skeleton } from "@mui/material";
+import { Avatar, ListItemAvatar} from "@mui/material";
 import React from "react";
 import styles from "./UserInfo.module.scss";
 

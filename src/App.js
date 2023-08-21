@@ -1,11 +1,7 @@
-import Container from "@mui/material/Container";
-
-import { Header, UserInfo } from "./components";
 import { Home, FullPost, Registration, AddPost, Login, Root } from "./pages";
 import {
   createBrowserRouter,
   RouterProvider,
-
 } from "react-router-dom";
 
 import { postLoader } from "./pages/FullPost";
@@ -26,10 +22,10 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "auth/register", element: <Registration />, action: authAction },
-       { path: "auth/login", element: <Login />, action: authAction },
-       { path: "posts/:id", element: <FullPost />, loader: postLoader },
-       { path: "posts/create", element: <AddPost />, loader: checkAuthLoader, action: addPostAction },
-       { path: "posts/:id/edit", element: <EditPost />, loader: editPostLoader, action: editPostAction }
+      { path: "auth/login", element: <Login />, action: authAction },
+      { path: "posts/:id", element: <FullPost />, loader: postLoader },
+      { path: "posts/create", element: <AddPost />, loader: checkAuthLoader, action: addPostAction },
+      { path: "posts/:id/edit", element: <EditPost />, loader: editPostLoader, action: editPostAction }
     ],
   },
 ]);
